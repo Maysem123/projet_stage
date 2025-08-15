@@ -141,11 +141,24 @@ def page_global_analytics():
         fig = px.histogram(df_data, x='MonthlyCharges', nbins=30, title='Monthly Charges ($)')
         st.plotly_chart(fig, use_container_width=True)
 
+    st.markdown("---")
+
+    # --- Row 4: Data Table ---
+    st.header("Raw Data (First 10 Customers)")
+    st.dataframe(df_data.head(10))
+
+    # Align button to the right
+    _, col_button = st.columns([10, 1])
+    with col_button:
+        if st.button("See more..."):
+            st.session_state.page = 'Customer Diagnosis'
+            st.rerun()
+
 # --- Sidebar Navigation ---
 st.sidebar.title("Navigation")
 
 if 'page' not in st.session_state:
-    st.session_state.page = 'Customer Diagnosis'
+    st.session_state.page = 'Global Analytics'
 
 if st.sidebar.button("Customer Diagnosis"):
     st.session_state.page = 'Customer Diagnosis'
