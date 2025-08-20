@@ -108,23 +108,19 @@ def page_customer_diagnosis():
     # Calculate SHAP values for the selected customer
     shap_values = explainer.shap_values(prediction_features)
 
-    # Generate and display the SHAP force plot
-    st.subheader("Feature Contribution to Churn Prediction")
-
-    # Generate the plot, ensuring there is enough space for labels
+    # --- Display SHAP Force Plot ---
+    st.subheader("Visual Contribution Chart")
     shap_plot = shap.force_plot(
         explainer.expected_value,
         shap_values[0, :],
         prediction_features.iloc[0, :],
         matplotlib=True,
         show=False,
-        figsize=(20, 5),  # Increase figure size
-        text_rotation=15   # Rotate text slightly
+        figsize=(20, 5),
+        text_rotation=15
     )
-
-    # Display the plot in Streamlit
     st.pyplot(shap_plot, bbox_inches='tight')
-    plt.close() # Close the plot to free memory
+    plt.close()
 
     st.subheader("How to Read This Chart")
     st.markdown(f"""
@@ -135,6 +131,45 @@ def page_customer_diagnosis():
     - **Features in Blue**: These are the characteristics that are **decreasing** their churn risk, pulling the prediction to the left. The larger the bar, the stronger the pull towards loyalty.
     - **Final Prediction (f(x))**: The final output value on the chart represents the model's precise churn probability for this customer after all the red and blue forces are combined.
     """)
+
+    # --- Generate Text-Based Explanation ---
+    st.subheader("Summary of Prediction Factors")
+    
+    # Create a DataFrame for easier analysis
+    feature_names = prediction_features.columns
+    feature_values = prediction_features.iloc[0].values
+    shap_df = pd.DataFrame({
+        'feature': feature_names,
+        'value': feature_values,
+        'shap_value': shap_values[0]
+    })
+    shap_df['abs_shap'] = shap_df['shap_value'].abs()
+    shap_df = shap_df.sort_values(by='abs_shap', ascending=False)
+
+    # Separate positive and negative contributors
+    positive_contributors = shap_df[shap_df['shap_value'] > 0]
+    negative_contributors = shap_df[shap_df['shap_value'] < 0]
+
+    base_value = explainer.expected_value
+    final_prediction = churn_probability
+
+    st.markdown(f"""
+    The model's prediction for this customer starts from a **base probability of {base_value:.2%}**. 
+    After considering the customer's specific details, the final **predicted churn probability is {final_prediction:.2%}**.
+
+    Here are the key factors influencing this prediction:
+    """)
+
+    if not positive_contributors.empty:
+        st.markdown("#### Factors Increasing Churn Risk:")
+        for _, row in positive_contributors.head(3).iterrows():
+            st.markdown(f"- **{row['feature']} = {row['value']}**: This is a significant factor pushing the prediction higher.")
+
+    if not negative_contributors.empty:
+        st.markdown("#### Factors Decreasing Churn Risk:")
+        for _, row in negative_contributors.head(3).iterrows():
+            st.markdown(f"- **{row['feature']} = {row['value']}**: This is a key factor pulling the prediction lower, indicating customer loyalty.")
+
 
 
 def page_global_analytics():
