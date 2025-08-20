@@ -162,13 +162,25 @@ def page_customer_diagnosis():
 
     if not positive_contributors.empty:
         st.markdown("#### Factors Increasing Churn Risk:")
-        for _, row in positive_contributors.head(3).iterrows():
-            st.markdown(f"- **{row['feature']} = {row['value']}**: This is a significant factor pushing the prediction higher.")
+        positive_phrases = [
+            "This is the primary factor pushing the prediction higher.",
+            "Additionally, this contributes to a greater churn risk.",
+            "This also plays a role in increasing the likelihood of churn."
+        ]
+        for i, (_, row) in enumerate(positive_contributors.head(3).iterrows()):
+            phrase = positive_phrases[i] if i < len(positive_phrases) else "This is another factor increasing churn risk."
+            st.markdown(f"- **{row['feature']} = {row['value']}**: {phrase}")
 
     if not negative_contributors.empty:
         st.markdown("#### Factors Decreasing Churn Risk:")
-        for _, row in negative_contributors.head(3).iterrows():
-            st.markdown(f"- **{row['feature']} = {row['value']}**: This is a key factor pulling the prediction lower, indicating customer loyalty.")
+        negative_phrases = [
+            "This is the main reason the model predicts loyalty.",
+            "Furthermore, this factor helps to lower the churn risk.",
+            "This also serves to decrease the probability of churn."
+        ]
+        for i, (_, row) in enumerate(negative_contributors.head(3).iterrows()):
+            phrase = negative_phrases[i] if i < len(negative_phrases) else "This is another factor decreasing churn risk."
+            st.markdown(f"- **{row['feature']} = {row['value']}**: {phrase}")
 
 
 
