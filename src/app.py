@@ -8,12 +8,13 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import joblib
+import shap
+import matplotlib.pyplot as plt
 
 # --- App setup ---
 st.set_page_config(
     page_title="AI Churn Dashboard",
     page_icon="🤖",
- 
     layout="wide"
 )
 
@@ -36,6 +37,14 @@ def load_model(path):
 # Load data and model
 df_data = load_data('data/WA_Fn-UseC_-Telco-Customer-Churn.csv')
 model = load_model('src/models/catboost_churn_model.joblib')
+
+# --- XAI Setup ---
+@st.cache_resource
+def get_shap_explainer(_model):
+    """Creates a SHAP Tree explainer for the given model."""
+    return shap.TreeExplainer(_model)
+
+explainer = get_shap_explainer(model)
 
 # --- Page Functions ---
 
@@ -93,17 +102,40 @@ def page_customer_diagnosis():
 
     st.markdown("---")
 
-    # Section for XAI explanation (with a visual placeholder)
+    # Section for XAI explanation
     st.header("🧠 Influence Factors (XAI Analysis)")
-    st.warning(
-        "This section is pending backend development. "
-        "It will display a chart explaining the reasons for the model's prediction.",
-        icon="⚠️"
+
+    # Calculate SHAP values for the selected customer
+    shap_values = explainer.shap_values(prediction_features)
+
+    # Generate and display the SHAP force plot
+    st.subheader("Feature Contribution to Churn Prediction")
+
+    # Generate the plot, ensuring there is enough space for labels
+    shap_plot = shap.force_plot(
+        explainer.expected_value,
+        shap_values[0, :],
+        prediction_features.iloc[0, :],
+        matplotlib=True,
+        show=False,
+        figsize=(20, 5),  # Increase figure size
+        text_rotation=15   # Rotate text slightly
     )
-    st.image(
-        'https://miro.medium.com/v2/resize:fit:1400/1*j_3_2N9NArY9i-5n12t3zA.png',
-        caption="Example of an explainability chart (SHAP) that will be generated here."
-    )
+
+    # Display the plot in Streamlit
+    st.pyplot(shap_plot, bbox_inches='tight')
+    plt.close() # Close the plot to free memory
+
+    st.subheader("How to Read This Chart")
+    st.markdown(f"""
+    This "force plot" illustrates the factors driving the churn prediction for this specific customer.
+
+    - **Base Value ({explainer.expected_value:.2f})**: This is the average churn probability across all customers. The model starts with this baseline.
+    - **Features in Red**: These are the characteristics of this customer that are **increasing** their risk of churning. The larger the bar, the stronger the push towards churning.
+    - **Features in Blue**: These are the characteristics that are **decreasing** their churn risk, pulling the prediction to the left. The larger the bar, the stronger the pull towards loyalty.
+    - **Final Prediction (f(x))**: The final output value on the chart represents the model's precise churn probability for this customer after all the red and blue forces are combined.
+    """)
+
 
 def page_global_analytics():
     """
