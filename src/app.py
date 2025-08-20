@@ -18,6 +18,237 @@ st.set_page_config(
     layout="wide"
 )
 
+# Custom CSS for professional styling
+st.markdown("""
+<style>
+    /* Main theme colors */
+    :root {
+        --primary-color: #0059b3;
+        --secondary-color: #f0f7ff;
+        --accent-color: #004080;
+        --text-color: #2c3e50;
+        --light-bg: #ffffff;
+        --border-color: #e1ecf4;
+        --page-bg: #fafcff;
+    }
+    
+    /* Main page background */
+    .stApp {
+        background: linear-gradient(135deg, var(--page-bg) 0%, #f8fbff 100%);
+    }
+    
+    .main .block-container {
+        background: transparent;
+        padding-top: 2rem;
+    }
+    
+    /* Sidebar background */
+    .css-1d391kg, .css-1cypcdb {
+        background: linear-gradient(180deg, #f0f7ff 0%, #e8f4ff 100%);
+    }
+    
+    /* Additional background fixes */
+    .stApp > header {
+        background: transparent;
+    }
+    
+    .stApp [data-testid="stSidebar"] {
+        background: linear-gradient(180deg, #f0f7ff 0%, #e8f4ff 100%);
+    }
+    
+    /* Ensure main content has proper background */
+    section[data-testid="stSidebar"] > div {
+        background: transparent;
+    }
+    
+    /* Header styling */
+    .main-header {
+        background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+        padding: 2rem;
+        border-radius: 15px;
+        color: white;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 15px rgba(0, 89, 179, 0.2);
+    }
+    
+    .main-header h1 {
+        color: white !important;
+        margin-bottom: 0.5rem;
+        font-size: 2.5rem;
+        font-weight: 600;
+    }
+    
+    .main-header p {
+        color: rgba(255, 255, 255, 0.9) !important;
+        font-size: 1.1rem;
+        margin: 0;
+    }
+    
+    /* Card styling */
+    .metric-card {
+        background: var(--light-bg);
+        padding: 1.5rem;
+        border-radius: 12px;
+        border: 2px solid var(--border-color);
+        margin-bottom: 1rem;
+        box-shadow: 0 2px 8px rgba(0, 89, 179, 0.1);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    .metric-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0, 89, 179, 0.15);
+    }
+    
+    .info-card {
+        background: var(--secondary-color);
+        padding: 1.5rem;
+        border-radius: 12px;
+        border-left: 4px solid var(--primary-color);
+        margin-bottom: 1rem;
+        color: var(--text-color) !important;
+    }
+    
+    .info-card p, .info-card li, .info-card strong {
+        color: var(--text-color) !important;
+    }
+    
+    .prediction-card {
+        background: linear-gradient(135deg, var(--light-bg) 0%, var(--secondary-color) 100%);
+        padding: 2rem;
+        border-radius: 15px;
+        border: 2px solid var(--primary-color);
+        text-align: center;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 15px rgba(0, 89, 179, 0.1);
+    }
+    
+    .section-header {
+        background: var(--secondary-color);
+        padding: 1rem 1.5rem;
+        border-radius: 10px;
+        border-left: 4px solid var(--primary-color);
+        margin: 2rem 0 1rem 0;
+    }
+    
+    .section-header h2 {
+        color: var(--primary-color) !important;
+        margin: 0;
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+    
+    /* Sidebar styling */
+    .css-1d391kg, .css-1cypcdb {
+        background: linear-gradient(180deg, #f0f7ff 0%, #e8f4ff 100%) !important;
+    }
+    
+    .css-1d391kg .css-1v0mbdj {
+        background: transparent;
+    }
+    
+    /* Button styling */
+    .stButton > button {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 0.5rem 1rem;
+        font-weight: 500;
+        transition: background-color 0.3s ease;
+    }
+    
+    .stButton > button:hover {
+        background-color: var(--accent-color);
+        border: none;
+        color: white;
+    }
+    
+    /* Metric styling */
+    .metric-container {
+        text-align: center;
+    }
+    
+    .metric-value {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: var(--primary-color);
+        margin-bottom: 0.5rem;
+    }
+    
+    .metric-label {
+        font-size: 1rem;
+        color: var(--text-color);
+        font-weight: 500;
+    }
+    
+    /* Status indicators */
+    .status-high-risk {
+        background: linear-gradient(135deg, #ff4757, #ff3742);
+        color: white;
+        padding: 1rem;
+        border-radius: 10px;
+        text-align: center;
+        font-weight: 600;
+        margin: 1rem 0;
+    }
+    
+    .status-loyal {
+        background: linear-gradient(135deg, #2ed573, #1dd1a1);
+        color: white;
+        padding: 1rem;
+        border-radius: 10px;
+        text-align: center;
+        font-weight: 600;
+        margin: 1rem 0;
+    }
+    
+    /* Table styling */
+    .dataframe {
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    
+    /* Explanation box */
+    .explanation-box {
+        background: var(--light-bg);
+        padding: 1.5rem;
+        border-radius: 12px;
+        border: 1px solid var(--border-color);
+        margin: 1rem 0;
+        box-shadow: 0 2px 8px rgba(0, 89, 179, 0.05);
+        color: var(--text-color) !important;
+    }
+    
+    .explanation-box h4 {
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+    }
+    
+    .explanation-box p, .explanation-box li, .explanation-box ul, .explanation-box strong, .explanation-box em {
+        color: var(--text-color) !important;
+    }
+    
+    /* Additional text color fixes */
+    div[style*="background: #f0f7ff"] p,
+    div[style*="background: #f0f7ff"] h4,
+    div[style*="background: #f0f7ff"] strong {
+        color: var(--text-color) !important;
+    }
+    
+    /* Ensure all paragraph text is visible */
+    .stMarkdown p {
+        color: var(--text-color) !important;
+    }
+    
+    /* Fix for dataframe display text */
+    .stDataFrame {
+        color: var(--text-color) !important;
+    }
+</style>
+""", unsafe_allow_html=True)
+
 # --- 3. Data Loading and Model Loading ---
 @st.cache_data
 def load_data(path):
@@ -52,88 +283,151 @@ def page_customer_diagnosis():
     """
     Displays the page for diagnosing a single customer.
     """
-    st.title("🤖 Customer Churn Prediction Dashboard")
-    st.markdown("This application is a functional mock-up that predicts a customer's risk of leaving and aims to explain the reasons behind this prediction.")
-    st.markdown("---")
+    # Professional header
+    st.markdown("""
+    <div class="main-header">
+        <h1>🤖 Customer Churn Prediction Dashboard</h1>
+        <p>Advanced AI-powered customer analysis to predict churn risk and provide actionable insights for customer retention strategies.</p>
+    </div>
+    """, unsafe_allow_html=True)
 
     # --- SIDEBAR for user controls ---
-    st.sidebar.header("⚙️ Selection Parameters")
+    st.sidebar.markdown("### ⚙️ Analysis Parameters")
+    st.sidebar.markdown("---")
 
     # Creating the dropdown menu to select a customer
     customer_ids_list = df_data['customerID'].tolist()
     selected_customer_id = st.sidebar.selectbox(
-        "Select a Customer ID for analysis:",
-        customer_ids_list
+        "🔍 Select Customer ID:",
+        customer_ids_list,
+        help="Choose a customer ID to analyze their churn probability and risk factors"
     )
 
+    st.sidebar.markdown("---")
+
     # --- MAIN PANEL for displaying results ---
-    st.header(f"📊 Diagnosis for Customer: {selected_customer_id}")
+    st.markdown(f"""
+    <div class="section-header">
+        <h2>📊 Customer Analysis Report</h2>
+    </div>
+    """, unsafe_allow_html=True)
 
     # Retrieving the data row for the selected customer
     client_info = df_data[df_data['customerID'] == selected_customer_id]
 
     # Preprocess the customer data for prediction
-    # The model was trained on all columns except 'customerID' and 'Churn'
     prediction_features = client_info.drop(columns=['customerID', 'Churn'])
 
     # Make prediction
     churn_probability = model.predict_proba(prediction_features)[0][1]
 
-    # Organizing the display into two columns for better readability
-    col1, col2 = st.columns(2)
+    # Professional prediction display
+    st.markdown(f"""
+    <div class="prediction-card">
+        <h3 style="color: #0059b3; margin-bottom: 1rem;">Customer ID: {selected_customer_id}</h3>
+        <div class="metric-container">
+            <div class="metric-value">{churn_probability:.0%}</div>
+            <div class="metric-label">Churn Risk Probability</div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
 
-    # Left column: Display of the prediction
+    # Status indicator
+    if churn_probability > 0.5:
+        st.markdown("""
+        <div class="status-high-risk">
+            🔴 HIGH RISK: This customer is likely to churn - Immediate intervention recommended
+        </div>
+        """, unsafe_allow_html=True)
+    else:
+        st.markdown("""
+        <div class="status-loyal">
+            🟢 LOW RISK: This customer is likely to remain loyal - Continue current engagement
+        </div>
+        """, unsafe_allow_html=True)
+
+    # Organizing the display into two columns
+    col1, col2 = st.columns([1, 1], gap="large")
+
+    # Left column: Model information
     with col1:
-        st.subheader("🔮 Churn Risk Prediction")
-        
-        st.metric("Probability of Churn", f"{churn_probability:.0%}")
-        
-        if churn_probability > 0.5:
-            st.error("🔴 Predicted Status: High-Risk Churn Customer")
-        else:
-            st.success("🟢 Predicted Status: Loyal Customer")
-        
-        st.info("This prediction is generated by a CatBoost model.", icon="ℹ️")
+        st.markdown("""
+        <div class="info-card">
+            <h4 style="color: #0059b3; margin-bottom: 1rem;">🤖 Model Information</h4>
+            <p style="color: #2c3e50;"><strong>Algorithm:</strong> CatBoost Gradient Boosting</p>
+            <p style="color: #2c3e50;"><strong>Prediction Type:</strong> Binary Classification</p>
+            <p style="color: #2c3e50;"><strong>Confidence Level:</strong> High Accuracy Model</p>
+            <p style="color: #2c3e50;"><strong>Last Updated:</strong> Current Session</p>
+        </div>
+        """, unsafe_allow_html=True)
 
-    # Right column: Display of basic customer information
+    # Right column: Customer overview
     with col2:
-        st.subheader("👤 Customer Information")
-        st.write(client_info.T.rename(columns={client_info.index[0]: 'Details'}))
-
-    st.markdown("---")
+        st.markdown("""
+        <div class="info-card">
+            <h4 style="color: #0059b3; margin-bottom: 1rem;">👤 Customer Profile</h4>
+        """, unsafe_allow_html=True)
+        
+        # Display key customer metrics in a clean format
+        key_metrics = {
+            'Gender': client_info['gender'].iloc[0],
+            'Contract Type': client_info['Contract'].iloc[0],
+            'Monthly Charges': f"${client_info['MonthlyCharges'].iloc[0]:.2f}",
+            'Tenure (Months)': client_info['tenure'].iloc[0],
+            'Total Charges': f"${client_info['TotalCharges'].iloc[0]:.2f}"
+        }
+        
+        for key, value in key_metrics.items():
+            st.markdown(f"<p style='color: #2c3e50;'><strong>{key}:</strong> {value}</p>", unsafe_allow_html=True)
+        
+        st.markdown("</div>", unsafe_allow_html=True)
 
     # Section for XAI explanation
-    st.header("🧠 Influence Factors (XAI Analysis)")
+    st.markdown("""
+    <div class="section-header">
+        <h2>🧠 AI Explainability Analysis</h2>
+    </div>
+    """, unsafe_allow_html=True)
 
     # Calculate SHAP values for the selected customer
     shap_values = explainer.shap_values(prediction_features)
 
     # --- Display SHAP Force Plot ---
-    st.subheader("Visual Contribution Chart")
-    shap_plot = shap.force_plot(
-        explainer.expected_value,
-        shap_values[0, :],
-        prediction_features.iloc[0, :],
-        matplotlib=True,
-        show=False,
-        figsize=(20, 5),
-        text_rotation=15
-    )
-    st.pyplot(shap_plot, bbox_inches='tight')
-    plt.close()
+    st.markdown("### 📈 Factor Contribution Visualization")
+    
+    with st.container():
+        shap_plot = shap.force_plot(
+            explainer.expected_value,
+            shap_values[0, :],
+            prediction_features.iloc[0, :],
+            matplotlib=True,
+            show=False,
+            figsize=(20, 6),
+            text_rotation=15
+        )
+        st.pyplot(shap_plot, bbox_inches='tight')
+        plt.close()
 
-    st.subheader("How to Read This Chart")
-    st.markdown(f"""
-    This "force plot" illustrates the factors driving the churn prediction for this specific customer.
+    # Enhanced explanation section
+    st.markdown("""
+    <div class="explanation-box">
+        <h4 style="color: #0059b3;">📖 How to Interpret This Analysis</h4>
+        <p style="color: #2c3e50;">This visualization shows how different customer characteristics influence the churn prediction:</p>
+        <ul style="color: #2c3e50;">
+            <li><strong>Base Value ({:.2f}):</strong> Average churn probability across all customers</li>
+            <li><strong>Red Bars:</strong> Factors that <em>increase</em> churn risk (push right)</li>
+            <li><strong>Blue Bars:</strong> Factors that <em>decrease</em> churn risk (push left)</li>
+            <li><strong>Final Prediction:</strong> Combined effect of all factors</li>
+        </ul>
+    </div>
+    """.format(explainer.expected_value), unsafe_allow_html=True)
 
-    - **Base Value ({explainer.expected_value:.2f})**: This is the average churn probability across all customers. The model starts with this baseline.
-    - **Features in Red**: These are the characteristics of this customer that are **increasing** their risk of churning. The larger the bar, the stronger the push towards churning.
-    - **Features in Blue**: These are the characteristics that are **decreasing** their churn risk, pulling the prediction to the left. The larger the bar, the stronger the pull towards loyalty.
-    - **Final Prediction (f(x))**: The final output value on the chart represents the model's precise churn probability for this customer after all the red and blue forces are combined.
-    """)
-
-    # --- Generate Text-Based Explanation ---
-    st.subheader("Summary of Prediction Factors")
+    # --- Generate Enhanced Text-Based Explanation ---
+    st.markdown("""
+    <div class="section-header">
+        <h2>📋 Detailed Risk Factor Analysis</h2>
+    </div>
+    """, unsafe_allow_html=True)
     
     # Create a DataFrame for easier analysis
     feature_names = prediction_features.columns
@@ -153,34 +447,48 @@ def page_customer_diagnosis():
     base_value = explainer.expected_value
     final_prediction = churn_probability
 
-    st.markdown(f"""
-    The model's prediction for this customer starts from a **base probability of {base_value:.2%}**. 
-    After considering the customer's specific details, the final **predicted churn probability is {final_prediction:.2%}**.
+    col1, col2 = st.columns(2, gap="large")
 
-    Here are the key factors influencing this prediction:
-    """)
+    with col1:
+        if not positive_contributors.empty:
+            st.markdown("""
+            <div class="info-card" style="border-left-color: #ff4757;">
+                <h4 style="color: #ff4757;">⚠️ Risk Increasing Factors</h4>
+            """, unsafe_allow_html=True)
+            
+            for i, (_, row) in enumerate(positive_contributors.head(5).iterrows()):
+                impact = "High" if row['abs_shap'] > 0.1 else "Medium" if row['abs_shap'] > 0.05 else "Low"
+                st.markdown(f"**{row['feature']}:** {row['value']} *(Impact: {impact})*")
+            
+            st.markdown("</div>", unsafe_allow_html=True)
 
-    if not positive_contributors.empty:
-        st.markdown("#### Factors Increasing Churn Risk:")
-        positive_phrases = [
-            "This is the primary factor pushing the prediction higher.",
-            "Additionally, this contributes to a greater churn risk.",
-            "This also plays a role in increasing the likelihood of churn."
-        ]
-        for i, (_, row) in enumerate(positive_contributors.head(3).iterrows()):
-            phrase = positive_phrases[i] if i < len(positive_phrases) else "This is another factor increasing churn risk."
-            st.markdown(f"- **{row['feature']} = {row['value']}**: {phrase}")
+    with col2:
+        if not negative_contributors.empty:
+            st.markdown("""
+            <div class="info-card" style="border-left-color: #2ed573;">
+                <h4 style="color: #2ed573;">✅ Loyalty Factors</h4>
+            """, unsafe_allow_html=True)
+            
+            for i, (_, row) in enumerate(negative_contributors.head(5).iterrows()):
+                impact = "High" if row['abs_shap'] > 0.1 else "Medium" if row['abs_shap'] > 0.05 else "Low"
+                st.markdown(f"**{row['feature']}:** {row['value']} *(Impact: {impact})*")
+            
+            st.markdown("</div>", unsafe_allow_html=True)
 
-    if not negative_contributors.empty:
-        st.markdown("#### Factors Decreasing Churn Risk:")
-        negative_phrases = [
-            "This is the main reason the model predicts loyalty.",
-            "Furthermore, this factor helps to lower the churn risk.",
-            "This also serves to decrease the probability of churn."
-        ]
-        for i, (_, row) in enumerate(negative_contributors.head(3).iterrows()):
-            phrase = negative_phrases[i] if i < len(negative_phrases) else "This is another factor decreasing churn risk."
-            st.markdown(f"- **{row['feature']} = {row['value']}**: {phrase}")
+    # Summary insights
+    st.markdown("""
+    <div class="explanation-box">
+        <h4 style="color: #0059b3;">🎯 Executive Summary</h4>
+        <p style="color: #2c3e50;">Starting from a baseline probability of <strong>{:.1%}</strong>, this customer's specific characteristics 
+        result in a final churn prediction of <strong>{:.1%}</strong>.</p>
+        <p style="color: #2c3e50;"><strong>Recommendation:</strong> {}</p>
+    </div>
+    """.format(
+        base_value, 
+        final_prediction,
+        "Focus on retention strategies targeting the key risk factors identified above." if churn_probability > 0.5 
+        else "Continue current engagement strategies while monitoring for changes in risk factors."
+    ), unsafe_allow_html=True)
 
 
 
@@ -188,76 +496,204 @@ def page_global_analytics():
     """
     Displays the global analytics page.
     """
-    st.title("📈 Global Customer Analytics")
-    st.markdown("This page provides a global overview of the customer base.")
-    st.markdown("---")
+    # Professional header
+    st.markdown("""
+    <div class="main-header">
+        <h1>📈 Global Customer Analytics</h1>
+        <p>Comprehensive overview of customer base patterns and trends for strategic business insights.</p>
+    </div>
+    """, unsafe_allow_html=True)
 
     # --- Row 1: Key Metrics ---
-    st.header("Key Metrics")
-    col1, col2, col3 = st.columns(3)
+    st.markdown("""
+    <div class="section-header">
+        <h2>📊 Key Performance Indicators</h2>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    col1, col2, col3 = st.columns(3, gap="large")
     total_customers = df_data.shape[0]
     churn_rate = (df_data['Churn'].value_counts(normalize=True)['Yes'] * 100)
     average_tenure = df_data['tenure'].mean()
 
-    col1.metric("Total Customers", f"{total_customers}")
-    col2.metric("Churn Rate", f"{churn_rate:.2f}%")
-    col3.metric("Average Tenure (Months)", f"{average_tenure:.1f}")
+    with col1:
+        st.markdown(f"""
+        <div class="metric-card">
+            <div class="metric-container">
+                <div class="metric-value">{total_customers:,}</div>
+                <div class="metric-label">Total Customers</div>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
 
-    st.markdown("---")
+    with col2:
+        st.markdown(f"""
+        <div class="metric-card">
+            <div class="metric-container">
+                <div class="metric-value">{churn_rate:.1f}%</div>
+                <div class="metric-label">Churn Rate</div>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    with col3:
+        st.markdown(f"""
+        <div class="metric-card">
+            <div class="metric-container">
+                <div class="metric-value">{average_tenure:.1f}</div>
+                <div class="metric-label">Avg. Tenure (Months)</div>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
 
     # --- Row 2: Charts ---
-    st.header("Visualizations")
-    col1, col2 = st.columns(2)
+    st.markdown("""
+    <div class="section-header">
+        <h2>📈 Customer Distribution Analysis</h2>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    col1, col2 = st.columns(2, gap="large")
 
     with col1:
-        st.subheader("Churn by Contract Type")
-        fig = px.sunburst(df_data, path=['Contract', 'Churn'], title='Churn Distribution by Contract Type')
+        st.markdown("##### 📋 Churn by Contract Type")
+        fig = px.sunburst(
+            df_data, 
+            path=['Contract', 'Churn'], 
+            title='',
+            color_discrete_sequence=['#0059b3', '#004080', '#f0f7ff', '#e1ecf4']
+        )
+        fig.update_layout(
+            font=dict(color='#2c3e50'),
+            plot_bgcolor='rgba(0,0,0,0)',
+            paper_bgcolor='rgba(0,0,0,0)'
+        )
         st.plotly_chart(fig, use_container_width=True)
 
     with col2:
-        st.subheader("Gender Distribution")
+        st.markdown("##### 👥 Gender Distribution")
         gender_counts = df_data['gender'].value_counts().reset_index()
         gender_counts.columns = ['gender', 'count']
-        fig = px.pie(gender_counts, values='count', names='gender', title='Customer Gender Distribution')
+        fig = px.pie(
+            gender_counts, 
+            values='count', 
+            names='gender', 
+            title='',
+            color_discrete_sequence=['#0059b3', '#004080']
+        )
+        fig.update_layout(
+            font=dict(color='#2c3e50'),
+            plot_bgcolor='rgba(0,0,0,0)',
+            paper_bgcolor='rgba(0,0,0,0)'
+        )
         st.plotly_chart(fig, use_container_width=True)
 
     # --- Row 3: More Charts ---
-    col3, col4 = st.columns(2)
+    col3, col4 = st.columns(2, gap="large")
 
     with col3:
-        st.subheader("Customer Tenure Distribution")
-        fig = px.histogram(df_data, x='tenure', nbins=30, title='Customer Tenure (Months)')
+        st.markdown("##### 📅 Customer Tenure Distribution")
+        fig = px.histogram(
+            df_data, 
+            x='tenure', 
+            nbins=30, 
+            title='',
+            color_discrete_sequence=['#0059b3']
+        )
+        fig.update_layout(
+            font=dict(color='#2c3e50'),
+            plot_bgcolor='rgba(0,0,0,0)',
+            paper_bgcolor='rgba(0,0,0,0)',
+            xaxis_title="Tenure (Months)",
+            yaxis_title="Number of Customers"
+        )
         st.plotly_chart(fig, use_container_width=True)
 
     with col4:
-        st.subheader("Monthly Charges Distribution")
-        fig = px.histogram(df_data, x='MonthlyCharges', nbins=30, title='Monthly Charges ($)')
+        st.markdown("##### 💰 Monthly Charges Distribution")
+        fig = px.histogram(
+            df_data, 
+            x='MonthlyCharges', 
+            nbins=30, 
+            title='',
+            color_discrete_sequence=['#0059b3']
+        )
+        fig.update_layout(
+            font=dict(color='#2c3e50'),
+            plot_bgcolor='rgba(0,0,0,0)',
+            paper_bgcolor='rgba(0,0,0,0)',
+            xaxis_title="Monthly Charges ($)",
+            yaxis_title="Number of Customers"
+        )
         st.plotly_chart(fig, use_container_width=True)
 
-    st.markdown("---")
-
     # --- Row 4: Data Table ---
-    st.header("Raw Data (First 10 Customers)")
-    st.dataframe(df_data.head(10))
+    st.markdown("""
+    <div class="section-header">
+        <h2>📋 Sample Customer Data</h2>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("""
+    <div class="info-card">
+        <p style="color: #2c3e50;">Preview of customer data showing the first 10 records from the dataset.</p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.dataframe(
+        df_data.head(10), 
+        use_container_width=True,
+        height=400
+    )
 
-    # Align button to the right
-    _, col_button = st.columns([10, 1])
-    with col_button:
-        if st.button("See more..."):
+    # Professional call-to-action
+    st.markdown("---")
+    col_center = st.columns([1, 2, 1])[1]
+    with col_center:
+        st.markdown("""
+        <div style="text-align: center; padding: 2rem;">
+            <h4 style="color: #0059b3;">Ready to analyze individual customers?</h4>
+            <p>Get detailed predictions and explanations for specific customer churn risk.</p>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        if st.button("🔍 Start Customer Analysis", use_container_width=True, type="primary"):
             st.session_state.page = 'Customer Diagnosis'
             st.rerun()
 
 # --- Sidebar Navigation ---
-st.sidebar.title("Navigation")
+st.sidebar.markdown("""
+<div style="background: linear-gradient(135deg, #0059b3, #004080); padding: 1.5rem; border-radius: 10px; margin-bottom: 2rem;">
+    <h2 style="color: white; margin: 0; text-align: center;">🧭 Navigation</h2>
+</div>
+""", unsafe_allow_html=True)
 
 if 'page' not in st.session_state:
     st.session_state.page = 'Global Analytics'
 
-if st.sidebar.button("Customer Diagnosis"):
-    st.session_state.page = 'Customer Diagnosis'
-    
-if st.sidebar.button("Global Analytics"):
-    st.session_state.page = 'Global Analytics'
+# Custom navigation buttons
+col1, col2 = st.sidebar.columns(2)
+
+with col1:
+    if st.button("🔍 Customer Analysis", use_container_width=True):
+        st.session_state.page = 'Customer Diagnosis'
+        st.rerun()
+
+with col2:
+    if st.button("📊 Global Analytics", use_container_width=True):
+        st.session_state.page = 'Global Analytics'
+        st.rerun()
+
+# Add some helpful information in sidebar
+st.sidebar.markdown("---")
+st.sidebar.markdown("""
+<div style="background: #f0f7ff; padding: 1rem; border-radius: 8px; border-left: 4px solid #0059b3;">
+    <h4 style="color: #0059b3; margin-top: 0;">ℹ️ About This Dashboard</h4>
+    <p style="font-size: 0.9rem; margin-bottom: 0;">
+        This AI-powered dashboard provides comprehensive customer churn analysis with explainable predictions to support data-driven retention strategies.
+    </p>
+</div>
+""", unsafe_allow_html=True)
 
 # --- Page Routing ---
 if st.session_state.page == 'Customer Diagnosis':
