@@ -30,9 +30,9 @@ print("--- Starting Hyperparameter Tuning for CatBoost ---")
 start_time = time.time()
 
 param_grid = {
-    'iterations': [100, 200],
+    'iterations': [100, 300],
     'depth': [4, 6],
-    'learning_rate': [0.05, 0.2],
+    'learning_rate': [0.05, 0.3],
     'l2_leaf_reg': [1, 3]
 }
 
