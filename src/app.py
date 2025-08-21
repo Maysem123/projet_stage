@@ -292,7 +292,6 @@ def page_customer_diagnosis():
     """, unsafe_allow_html=True)
 
     # --- SIDEBAR for user controls ---
-    st.sidebar.markdown("### ⚙️ Analysis Parameters")
     st.sidebar.markdown("---")
 
     # Creating the dropdown menu to select a customer
