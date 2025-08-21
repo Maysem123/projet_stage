@@ -393,7 +393,7 @@ def page_customer_diagnosis():
     shap_values = explainer.shap_values(prediction_features)
 
     # --- Display SHAP Force Plot ---
-    st.markdown("### 📈 Factor Contribution Visualization")
+    st.markdown('<h3 style="color: #0059b3;">📈 Factor Contribution Visualization</h3>', unsafe_allow_html=True)
     
     with st.container():
         shap_plot = shap.force_plot(
@@ -556,35 +556,48 @@ def page_global_analytics():
     col1, col2 = st.columns(2, gap="large")
 
     with col1:
-        st.markdown("##### 📋 Churn by Contract Type")
         fig = px.sunburst(
             df_data, 
             path=['Contract', 'Churn'], 
-            title='',
+            title="Churn by Contract Type",
             color_discrete_sequence=['#0059b3', '#004080', '#f0f7ff', '#e1ecf4']
         )
         fig.update_layout(
-            font=dict(color='#2c3e50'),
+            font=dict(color='#2c3e50', size=12),
             plot_bgcolor='rgba(0,0,0,0)',
-            paper_bgcolor='rgba(0,0,0,0)'
+            paper_bgcolor='rgba(0,0,0,0)',
+            title_font_color='#0059b3',
+            title_font_size=16
+        )
+        fig.update_traces(
+            textfont_color='white',
+            textfont_size=14,
+            insidetextorientation='radial'
         )
         st.plotly_chart(fig, use_container_width=True)
 
     with col2:
-        st.markdown("##### 👥 Gender Distribution")
         gender_counts = df_data['gender'].value_counts().reset_index()
         gender_counts.columns = ['gender', 'count']
         fig = px.pie(
             gender_counts, 
             values='count', 
             names='gender', 
-            title='',
+            title="Gender Distribution",
             color_discrete_sequence=['#0059b3', '#004080']
         )
         fig.update_layout(
-            font=dict(color='#2c3e50'),
+            font=dict(color='#2c3e50', size=12),
             plot_bgcolor='rgba(0,0,0,0)',
-            paper_bgcolor='rgba(0,0,0,0)'
+            paper_bgcolor='rgba(0,0,0,0)',
+            title_font_color='#0059b3',
+            title_font_size=16
+        )
+        fig.update_traces(
+            textinfo='percent+label',
+            textposition='inside',
+            textfont_size=16,
+            textfont_color='white'
         )
         st.plotly_chart(fig, use_container_width=True)
 
@@ -592,38 +605,56 @@ def page_global_analytics():
     col3, col4 = st.columns(2, gap="large")
 
     with col3:
-        st.markdown("##### 📅 Customer Tenure Distribution")
         fig = px.histogram(
             df_data, 
             x='tenure', 
             nbins=30, 
-            title='',
+            title="Customer Tenure Distribution",
             color_discrete_sequence=['#0059b3']
         )
         fig.update_layout(
-            font=dict(color='#2c3e50'),
+            font=dict(color='#2c3e50', size=12),
             plot_bgcolor='rgba(0,0,0,0)',
             paper_bgcolor='rgba(0,0,0,0)',
+            title_font_color='#0059b3',
+            title_font_size=16,
             xaxis_title="Tenure (Months)",
-            yaxis_title="Number of Customers"
+            yaxis_title="Number of Customers",
+            xaxis=dict(
+                title_font=dict(color='#2c3e50', size=12),
+                tickfont=dict(color='#2c3e50', size=11)
+            ),
+            yaxis=dict(
+                title_font=dict(color='#2c3e50', size=12),
+                tickfont=dict(color='#2c3e50', size=11)
+            )
         )
         st.plotly_chart(fig, use_container_width=True)
 
     with col4:
-        st.markdown("##### 💰 Monthly Charges Distribution")
         fig = px.histogram(
             df_data, 
             x='MonthlyCharges', 
             nbins=30, 
-            title='',
+            title="Monthly Charges Distribution",
             color_discrete_sequence=['#0059b3']
         )
         fig.update_layout(
-            font=dict(color='#2c3e50'),
+            font=dict(color='#2c3e50', size=12),
             plot_bgcolor='rgba(0,0,0,0)',
             paper_bgcolor='rgba(0,0,0,0)',
+            title_font_color='#0059b3',
+            title_font_size=16,
             xaxis_title="Monthly Charges ($)",
-            yaxis_title="Number of Customers"
+            yaxis_title="Number of Customers",
+            xaxis=dict(
+                title_font=dict(color='#2c3e50', size=12),
+                tickfont=dict(color='#2c3e50', size=11)
+            ),
+            yaxis=dict(
+                title_font=dict(color='#2c3e50', size=12),
+                tickfont=dict(color='#2c3e50', size=11)
+            )
         )
         st.plotly_chart(fig, use_container_width=True)
 
