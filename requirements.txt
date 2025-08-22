@@ -7,3 +7,5 @@ matplotlib
 seaborn
 joblib
 jupyterlab
+catboost
+plotly.express
